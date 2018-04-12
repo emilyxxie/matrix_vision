@@ -1,13 +1,14 @@
 p5.disableFriendlyErrors = true;
 
-var video;
 var pScale = 10;
 var symbols = [];
+
+var video;
 var r;
 var g;
 var b;
-var bright;
-var gBright;
+var brightness;
+var gBrightness;
 
 function setup() {
   createCanvas(870, 580);
@@ -36,21 +37,25 @@ function draw() {
   background(0, 230);
   video.loadPixels();
   symbols.forEach(function(symbol) {
-    if (symbol.x * pScale > width || symbol.x * pScale < 0 || symbol.y * pScale > height || symbol.y * pScale < 0) {
+    if (
+      symbol.x * pScale > width ||
+      symbol.x * pScale < 0 ||
+      symbol.y * pScale > height ||
+      symbol.y * pScale < 0) {
     } else {
-      var index = (symbol.x + 1 + (symbol.y * video.width)  * 4);
-      var index = (video.width - Math.ceil(symbol.x) + 1 + (Math.ceil(symbol.y) * video.width))*4;
-      r = video.pixels[index + 0];
+      var index = (video.width - Math.ceil(symbol.x) + 1 + (Math.ceil(symbol.y) * video.width)) * 4;
+
+      r = video.pixels[index];
       g = video.pixels[index + 1];
       b = video.pixels[index + 2];
-      bright = (r + g + b) / 3;
-      gBright = map(g, 0, 255, 20, 260);
 
-      var w = map(bright, 0, 255, 5, 10);
+      brightness = (r + g + b) / 3;
+      gBrightness = map(g, 0, 255, 20, 260);
+
       if (!r || ! g || ! b) {
         fill(0, 0, 0);
       } else {
-        fill(30, g, 30, gBright);
+        fill(30, g, 30, gBrightness);
       }
       text(symbol.value, symbol.x * pScale, symbol.y * pScale);
     }
