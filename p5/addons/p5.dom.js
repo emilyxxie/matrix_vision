@@ -1109,7 +1109,7 @@
         cb = arguments[i];
       }
     }
-    if (navigator.getUserMedia) {
+    if (navigator.mediaDevices.getUserMedia) {
       var elt = document.createElement('video');
 
       if (!constraints) {
